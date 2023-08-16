@@ -8,30 +8,38 @@ type Todotype = {
     completed: boolean;
 };
 
-const TodoList = () => {
-    const [data, setData] = useState<Todotype[]>([]);
+const useFetchTodo = () => {
+    const [todo, setTodo] = useState<Todotype[]>([]);
     const [isFetching, setIsFetching] = useState(true);
 
     useEffect(() => {
         axios
             .get<Todotype[]>("https://jsonplaceholder.typicode.com/todos")
             .then((res) => {
-                setData(res.data);
+                setTodo(res.data);
             })
             .catch((e) => {
                 console.log(e);
             })
             .finally(() => {
                 setIsFetching(false);
-            })
+            });
     }, []);
 
+    return {todo, isFetching};
+};
+
+const TodoList = () => {
+    const { todo, isFetching } = useFetchTodo();
+
+    if (isFetching) return <p>Loading ...</p>
+    
     return (
         <ul>
-            {data.map((todo) => {
+            {todo.map((todo) => {
                 return (
-                    <li>
-                        <span>{todo.id}</span>
+                    <li key={todo.id}>
+                        <span>{todo.id}. </span>
                         <span>{todo.title}</span>
                     </li>
                 )
