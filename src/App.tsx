@@ -1,15 +1,11 @@
 import './App.css'
-import TodoList from './1-SingleResponsability/components/TodoList/TodoList';
+// import SingleResponsability from './1-SingleResponsability/SingleResponsability';
+import OpenClosed from './2-OpenClosed/OpenClosed';
 
 function App() {
   return (
     <section className='container py-4'>
-      <h1>
-        React JS :: <small className="text-muted">SOLID Principles</small>
-      </h1>
-      <hr />
-
-      <TodoList />
+      <OpenClosed />
     </section>
   );
 }
